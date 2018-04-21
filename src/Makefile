@@ -17,7 +17,7 @@ CSed.cpp \
 OBJS = $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRC))
 
 CFLAGS = \
--std=c++11 \
+-std=c++14 \
 -I$(INC_DIR) \
 -I. \
 -I../../CFile/include \
