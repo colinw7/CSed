@@ -2,7 +2,7 @@
 #define CSED_H
 
 #include <CRegExp.h>
-#include <CAutoPtr.h>
+#include <memory>
 #include <iostream>
 #include <sys/types.h>
 
@@ -24,6 +24,8 @@ class CSedPointCondition {
  protected:
   CSed *sed_;
 };
+
+//---
 
 class CSedCondition {
  public:
@@ -64,6 +66,8 @@ class CSedCondition {
   Position            position_;
 };
 
+//---
+
 class CSedLineCondition : public CSedPointCondition {
  public:
   CSedLineCondition(CSed *sed, int line) :
@@ -75,6 +79,8 @@ class CSedLineCondition : public CSedPointCondition {
  private:
   int line_;
 };
+
+//---
 
 class CSedRegExpCondition : public CSedPointCondition {
  public:
@@ -89,6 +95,8 @@ class CSedRegExpCondition : public CSedPointCondition {
  private:
   CRegExp expr_;
 };
+
+//---
 
 class CSedCommand {
  public:
@@ -108,6 +116,8 @@ class CSedCommand {
   CSedCondition *condition_;
 };
 
+//---
+
 class CSedCommentCommand : public CSedCommand {
  public:
   CSedCommentCommand(CSed *sed, CSedCondition *condition) :
@@ -116,6 +126,8 @@ class CSedCommentCommand : public CSedCommand {
 
   bool execute();
 };
+
+//---
 
 class CSedDeleteCommand : public CSedCommand {
  public:
@@ -126,6 +138,8 @@ class CSedDeleteCommand : public CSedCommand {
   bool execute();
 };
 
+//---
+
 class CSedDeleteFirstCommand : public CSedCommand {
  public:
   CSedDeleteFirstCommand(CSed *sed, CSedCondition *condition) :
@@ -134,6 +148,8 @@ class CSedDeleteFirstCommand : public CSedCommand {
 
   bool execute();
 };
+
+//---
 
 class CSedNextCommand : public CSedCommand {
  public:
@@ -144,6 +160,8 @@ class CSedNextCommand : public CSedCommand {
   bool execute();
 };
 
+//---
+
 class CSedAppendNextCommand : public CSedCommand {
  public:
   CSedAppendNextCommand(CSed *sed, CSedCondition *condition) :
@@ -152,6 +170,8 @@ class CSedAppendNextCommand : public CSedCommand {
 
   bool execute();
 };
+
+//---
 
 class CSedReadCommand : public CSedCommand {
  public:
@@ -165,6 +185,8 @@ class CSedReadCommand : public CSedCommand {
   std::string filename_;
 };
 
+//---
+
 class CSedWriteCommand : public CSedCommand {
  public:
   CSedWriteCommand(CSed *sed, CSedCondition *condition, const std::string &filename) :
@@ -174,9 +196,13 @@ class CSedWriteCommand : public CSedCommand {
   bool execute();
 
  private:
-  std::string     filename_;
-  CAutoPtr<CFile> file_;
+  using FileP = std::unique_ptr<CFile>;
+
+  std::string filename_;
+  FileP       file_;
 };
+
+//---
 
 class CSedPrintCommand : public CSedCommand {
  public:
@@ -187,6 +213,8 @@ class CSedPrintCommand : public CSedCommand {
   bool execute();
 };
 
+//---
+
 class CSedPrintFirstCommand : public CSedCommand {
  public:
   CSedPrintFirstCommand(CSed *sed, CSedCondition *condition) :
@@ -196,6 +224,8 @@ class CSedPrintFirstCommand : public CSedCommand {
   bool execute();
 };
 
+//---
+
 class CSedPrintLineNumCommand : public CSedCommand {
  public:
   CSedPrintLineNumCommand(CSed *sed, CSedCondition *condition) :
@@ -204,6 +234,8 @@ class CSedPrintLineNumCommand : public CSedCommand {
 
   bool execute();
 };
+
+//---
 
 class CSedQuitCommand : public CSedCommand {
  public:
@@ -216,6 +248,8 @@ class CSedQuitCommand : public CSedCommand {
  private:
   int exit_code_;
 };
+
+//---
 
 class CSedSubstituteCommand : public CSedCommand {
  public:
@@ -235,6 +269,8 @@ class CSedSubstituteCommand : public CSedCommand {
   bool        print_;
 };
 
+//---
+
 class CSedTranslateCommand : public CSedCommand {
  public:
   CSedTranslateCommand(CSed *sed, CSedCondition *condition, const std::string &lhs,
@@ -249,6 +285,8 @@ class CSedTranslateCommand : public CSedCommand {
   std::string rhs_;
 };
 
+//---
+
 class CSedToHoldCommand : public CSedCommand {
  public:
   CSedToHoldCommand(CSed *sed, CSedCondition *condition) :
@@ -257,6 +295,8 @@ class CSedToHoldCommand : public CSedCommand {
 
   bool execute();
 };
+
+//---
 
 class CSedToHoldNewlineCommand : public CSedCommand {
  public:
@@ -267,6 +307,8 @@ class CSedToHoldNewlineCommand : public CSedCommand {
   bool execute();
 };
 
+//---
+
 class CSedToPatternCommand : public CSedCommand {
  public:
   CSedToPatternCommand(CSed *sed, CSedCondition *condition) :
@@ -275,6 +317,8 @@ class CSedToPatternCommand : public CSedCommand {
 
   bool execute();
 };
+
+//---
 
 class CSedToPatternNewlineCommand : public CSedCommand {
  public:
@@ -285,6 +329,8 @@ class CSedToPatternNewlineCommand : public CSedCommand {
   bool execute();
 };
 
+//---
+
 class CSedExchangeCommand : public CSedCommand {
  public:
   CSedExchangeCommand(CSed *sed, CSedCondition *condition) :
@@ -294,6 +340,8 @@ class CSedExchangeCommand : public CSedCommand {
   bool execute();
 };
 
+//---
+
 class CSedListCommand : public CSedCommand {
  public:
   CSedListCommand(CSed *sed, CSedCondition *condition) :
@@ -302,6 +350,8 @@ class CSedListCommand : public CSedCommand {
 
   bool execute();
 };
+
+//---
 
 class CSedAppendCommand : public CSedCommand {
  public:
@@ -315,6 +365,8 @@ class CSedAppendCommand : public CSedCommand {
   std::string line_;
 };
 
+//---
+
 class CSedInsertCommand : public CSedCommand {
  public:
   CSedInsertCommand(CSed *sed, CSedCondition *condition, const std::string &line) :
@@ -327,6 +379,8 @@ class CSedInsertCommand : public CSedCommand {
   std::string line_;
 };
 
+//---
+
 class CSedChangeCommand : public CSedCommand {
  public:
   CSedChangeCommand(CSed *sed, CSedCondition *condition, const std::string &line) :
@@ -338,6 +392,8 @@ class CSedChangeCommand : public CSedCommand {
  private:
   std::string line_;
 };
+
+//---
 
 class CSedCommandList : public CSedCommand {
  public:
@@ -356,6 +412,8 @@ class CSedCommandList : public CSedCommand {
 
   CommandList commands_;
 };
+
+//---
 
 class CSed {
  public:
@@ -394,12 +452,12 @@ class CSed {
   CommandList      commands_;
   std::string      pattern_;
   std::string      hold_;
-  uint             line_num_;
-  bool             last_line_;
-  bool             silent_;
-  CFile           *sfile_;
-  CFile           *file_;
-  CSedCommandList *command_list_;
+  uint             line_num_     { 0 };
+  bool             last_line_    { false };
+  bool             silent_       { false };
+  CFile*           sfile_        { nullptr };
+  CFile*           file_         { nullptr };
+  CSedCommandList* command_list_ { nullptr };
   CommandListList  command_list_list_;
 };
 

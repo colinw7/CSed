@@ -6,8 +6,7 @@
 #include <cstdlib>
 
 CSed::
-CSed() :
- line_num_(-1), last_line_(false), silent_(false), file_(0), command_list_(0)
+CSed()
 {
 }
 
@@ -798,8 +797,8 @@ bool
 CSedWriteCommand::
 execute()
 {
-  if (! file_.isValid())
-    file_ = new CFile(filename_);
+  if (! file_)
+    file_ = std::make_unique<CFile>(filename_);
 
   std::string line;
 
