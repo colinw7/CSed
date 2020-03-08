@@ -260,6 +260,8 @@ class CSedSubstituteCommand : public CSedCommand {
     //find_.setMatchEOL(false);
   }
 
+  bool isPrint() const { return print_; }
+
   bool execute();
 
  private:

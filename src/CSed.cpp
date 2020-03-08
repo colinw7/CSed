@@ -161,7 +161,7 @@ addCommand(const std::string &cmd)
       else if (parse.isChar('/')) {
         parse.skipChar();
 
-        std::string expr;
+        std::string expr1;
 
         while (! parse.eof() && ! parse.isChar('/')) {
           char c;
@@ -169,12 +169,12 @@ addCommand(const std::string &cmd)
           parse.readChar(&c);
 
           if (c == '\\' && ! parse.eof()) {
-            expr += c;
+            expr1 += c;
 
             parse.readChar(&c);
           }
 
-          expr += c;
+          expr1 += c;
         }
 
         if (parse.eof()) {
@@ -184,7 +184,7 @@ addCommand(const std::string &cmd)
 
         parse.skipChar();
 
-        end_condition = new CSedRegExpCondition(this, expr);
+        end_condition = new CSedRegExpCondition(this, expr1);
       }
       else {
         std::cerr << "Invalid character after ','" << std::endl;
@@ -309,17 +309,17 @@ addCommand(const std::string &cmd)
     std::string find, replace;
 
     while (! parse.eof() && ! parse.isChar(sep)) {
-      char c;
+      char c1;
 
-      parse.readChar(&c);
+      parse.readChar(&c1);
 
-      if (c == '\\' && ! parse.eof()) {
-        find += c;
+      if (c1 == '\\' && ! parse.eof()) {
+        find += c1;
 
-        parse.readChar(&c);
+        parse.readChar(&c1);
       }
 
-      find += c;
+      find += c1;
     }
 
     if (parse.eof()) {
@@ -330,17 +330,17 @@ addCommand(const std::string &cmd)
     parse.skipChar();
 
     while (! parse.eof() && ! parse.isChar(sep)) {
-      char c;
+      char c1;
 
-      parse.readChar(&c);
+      parse.readChar(&c1);
 
-      if (c == '\\' && ! parse.eof()) {
-        replace += c;
+      if (c1 == '\\' && ! parse.eof()) {
+        replace += c1;
 
-        parse.readChar(&c);
+        parse.readChar(&c1);
       }
 
-      replace += c;
+      replace += c1;
     }
 
     if (parse.eof()) {
@@ -362,17 +362,17 @@ addCommand(const std::string &cmd)
         parse.readInteger(&n);
       }
       else {
-        char c;
+        char c1;
 
-        parse.readChar(&c);
+        parse.readChar(&c1);
 
-        if      (c == 'g')
+        if      (c1 == 'g')
           global = true;
-        else if (c == 'p')
+        else if (c1 == 'p')
           print = true;
-        else if (c == 'w')
+        else if (c1 == 'w')
           ; // write
-        else if (c == 'e')
+        else if (c1 == 'e')
           ; // execute
         else {
           std::cerr << "Invalid substitute modifier" << std::endl;
@@ -396,17 +396,17 @@ addCommand(const std::string &cmd)
     std::string lhs, rhs;
 
     while (! parse.eof() && ! parse.isChar(sep)) {
-      char c;
+      char c1;
 
-      parse.readChar(&c);
+      parse.readChar(&c1);
 
-      if (c == '\\' && ! parse.eof()) {
-        lhs += c;
+      if (c1 == '\\' && ! parse.eof()) {
+        lhs += c1;
 
-        parse.readChar(&c);
+        parse.readChar(&c1);
       }
 
-      lhs += c;
+      lhs += c1;
     }
 
     if (parse.eof()) {
@@ -417,17 +417,17 @@ addCommand(const std::string &cmd)
     parse.skipChar();
 
     while (! parse.eof() && ! parse.isChar(sep)) {
-      char c;
+      char c1;
 
-      parse.readChar(&c);
+      parse.readChar(&c1);
 
-      if (c == '\\' && ! parse.eof()) {
-        rhs += c;
+      if (c1 == '\\' && ! parse.eof()) {
+        rhs += c1;
 
-        parse.readChar(&c);
+        parse.readChar(&c1);
       }
 
-      rhs += c;
+      rhs += c1;
     }
 
     if (parse.eof()) {
