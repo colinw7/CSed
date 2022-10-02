@@ -697,7 +697,7 @@ execute()
   if (line_ == -1)
     return sed_->isLastLine();
 
-  return ((int) sed_->getLineNum() == line_);
+  return (int(sed_->getLineNum()) == line_);
 }
 
 bool
