@@ -74,7 +74,7 @@ class CSedLineCondition : public CSedPointCondition {
    CSedPointCondition(sed), line_(line) {
   }
 
-  bool execute();
+  bool execute() override;
 
  private:
   int line_;
@@ -90,7 +90,7 @@ class CSedRegExpCondition : public CSedPointCondition {
     //expr_.setMatchEOL(false);
   }
 
-  bool execute();
+  bool execute() override;
 
  private:
   CRegExp expr_;
@@ -124,7 +124,7 @@ class CSedCommentCommand : public CSedCommand {
    CSedCommand(sed, condition) {
   }
 
-  bool execute();
+  bool execute() override;
 };
 
 //---
@@ -135,7 +135,7 @@ class CSedDeleteCommand : public CSedCommand {
    CSedCommand(sed, condition) {
   }
 
-  bool execute();
+  bool execute() override;
 };
 
 //---
@@ -146,7 +146,7 @@ class CSedDeleteFirstCommand : public CSedCommand {
    CSedCommand(sed, condition) {
   }
 
-  bool execute();
+  bool execute() override;
 };
 
 //---
@@ -157,7 +157,7 @@ class CSedNextCommand : public CSedCommand {
    CSedCommand(sed, condition) {
   }
 
-  bool execute();
+  bool execute() override;
 };
 
 //---
@@ -168,7 +168,7 @@ class CSedAppendNextCommand : public CSedCommand {
    CSedCommand(sed, condition) {
   }
 
-  bool execute();
+  bool execute() override;
 };
 
 //---
@@ -179,7 +179,7 @@ class CSedReadCommand : public CSedCommand {
    CSedCommand(sed, condition), filename_(filename) {
   }
 
-  bool execute();
+  bool execute() override;
 
  private:
   std::string filename_;
@@ -193,7 +193,7 @@ class CSedWriteCommand : public CSedCommand {
    CSedCommand(sed, condition), filename_(filename) {
   }
 
-  bool execute();
+  bool execute() override;
 
  private:
   using FileP = std::unique_ptr<CFile>;
@@ -210,7 +210,7 @@ class CSedPrintCommand : public CSedCommand {
    CSedCommand(sed, condition) {
   }
 
-  bool execute();
+  bool execute() override;
 };
 
 //---
@@ -221,7 +221,7 @@ class CSedPrintFirstCommand : public CSedCommand {
    CSedCommand(sed, condition) {
   }
 
-  bool execute();
+  bool execute() override;
 };
 
 //---
@@ -232,7 +232,7 @@ class CSedPrintLineNumCommand : public CSedCommand {
    CSedCommand(sed, condition) {
   }
 
-  bool execute();
+  bool execute() override;
 };
 
 //---
@@ -243,7 +243,7 @@ class CSedQuitCommand : public CSedCommand {
    CSedCommand(sed, condition), exit_code_(exit_code) {
   }
 
-  bool execute();
+  bool execute() override;
 
  private:
   int exit_code_;
@@ -262,7 +262,7 @@ class CSedSubstituteCommand : public CSedCommand {
 
   bool isPrint() const { return print_; }
 
-  bool execute();
+  bool execute() override;
 
  private:
   CRegExp     find_;
@@ -280,7 +280,7 @@ class CSedTranslateCommand : public CSedCommand {
    CSedCommand(sed, condition), lhs_(lhs), rhs_(rhs) {
   }
 
-  bool execute();
+  bool execute() override;
 
  private:
   std::string lhs_;
@@ -295,7 +295,7 @@ class CSedToHoldCommand : public CSedCommand {
    CSedCommand(sed, condition) {
   }
 
-  bool execute();
+  bool execute() override;
 };
 
 //---
@@ -306,7 +306,7 @@ class CSedToHoldNewlineCommand : public CSedCommand {
    CSedCommand(sed, condition) {
   }
 
-  bool execute();
+  bool execute() override;
 };
 
 //---
@@ -317,7 +317,7 @@ class CSedToPatternCommand : public CSedCommand {
    CSedCommand(sed, condition) {
   }
 
-  bool execute();
+  bool execute() override;
 };
 
 //---
@@ -328,7 +328,7 @@ class CSedToPatternNewlineCommand : public CSedCommand {
    CSedCommand(sed, condition) {
   }
 
-  bool execute();
+  bool execute() override;
 };
 
 //---
@@ -339,7 +339,7 @@ class CSedExchangeCommand : public CSedCommand {
    CSedCommand(sed, condition) {
   }
 
-  bool execute();
+  bool execute() override;
 };
 
 //---
@@ -350,7 +350,7 @@ class CSedListCommand : public CSedCommand {
    CSedCommand(sed, condition) {
   }
 
-  bool execute();
+  bool execute() override;
 };
 
 //---
@@ -361,7 +361,7 @@ class CSedAppendCommand : public CSedCommand {
    CSedCommand(sed, condition), line_(line) {
   }
 
-  bool execute();
+  bool execute() override;
 
  private:
   std::string line_;
@@ -375,7 +375,7 @@ class CSedInsertCommand : public CSedCommand {
    CSedCommand(sed, condition), line_(line) {
   }
 
-  bool execute();
+  bool execute() override;
 
  private:
   std::string line_;
@@ -389,7 +389,7 @@ class CSedChangeCommand : public CSedCommand {
    CSedCommand(sed, condition), line_(line) {
   }
 
-  bool execute();
+  bool execute() override;
 
  private:
   std::string line_;
@@ -407,7 +407,7 @@ class CSedCommandList : public CSedCommand {
     commands_.push_back(command);
   }
 
-  bool execute();
+  bool execute() override;
 
  private:
   typedef std::vector<CSedCommand *> CommandList;

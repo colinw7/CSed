@@ -34,8 +34,8 @@ addCommand(const std::string &cmd)
 
   parse.skipSpace();
 
-  CSedPointCondition *start_condition = 0;
-  CSedPointCondition *end_condition   = 0;
+  CSedPointCondition *start_condition = nullptr;
+  CSedPointCondition *end_condition   = nullptr;
 
   if (parse.isDigit()) {
     int start = -1;
@@ -217,7 +217,7 @@ addCommand(const std::string &cmd)
 
   //--------------
 
-  CSedCommand *command = 0;
+  CSedCommand *command = nullptr;
 
   if      (c == '#') {
     command = new CSedCommentCommand(this, condition);
@@ -277,13 +277,13 @@ addCommand(const std::string &cmd)
     command = new CSedWriteCommand(this, condition, filename);
   }
   else if (c == '{') {
-    if (command_list_ != 0)
+    if (command_list_ != nullptr)
       command_list_list_.push_back(command_list_);
 
     command_list_ = new CSedCommandList(this, condition);
   }
   else if (c == '}') {
-    if (command_list_ == 0) {
+    if (command_list_ == nullptr) {
       std::cerr << "Open close brace mismatch" << std::endl;
       return false;
     }
@@ -296,7 +296,7 @@ addCommand(const std::string &cmd)
       command_list_list_.pop_back();
     }
     else
-      command_list_ = 0;
+      command_list_ = nullptr;
   }
   else if (c == 's') { // (,.,.)s[/<regexp>/<replace>//[g]] - substitute
     char sep;
@@ -547,7 +547,7 @@ addCommand(const std::string &cmd)
   if (! command)
     return true;
 
-  if (command_list_ != 0)
+  if (command_list_ != nullptr)
     command_list_->addCommand(command);
   else
     commands_.push_back(command);
@@ -629,7 +629,7 @@ executeCommands()
 CSedCondition::
 CSedCondition(CSed *sed, CSedPointCondition *start_condition,
               CSedPointCondition *end_condition, bool invert) :
- sed_(sed), command_(0), start_condition_(start_condition), end_condition_(end_condition),
+ sed_(sed), command_(nullptr), start_condition_(start_condition), end_condition_(end_condition),
  invert_(invert), inside_(false), position_(NO_LINE)
 {
 }
